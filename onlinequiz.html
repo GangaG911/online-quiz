@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+        .quiz-box {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h2 id="question">Question</h2>
+
+    <button onclick="checkAnswer(0)" id="opt0"></button>
+    <button onclick="checkAnswer(1)" id="opt1"></button>
+    <button onclick="checkAnswer(2)" id="opt2"></button>
+    <button onclick="checkAnswer(3)" id="opt3"></button>
+
+    <h3 id="score"></h3>
+</div>
+
+<script>
+let questions = [
+    {
+        q: "What is 2 + 2?",
+        options: ["2", "4", "6", "8"],
+        answer: 1
+    },
+    {
+        q: "Capital of India?",
+        options: ["Chennai", "Delhi", "Mumbai", "Kolkata"],
+        answer: 1
+    },
+    {
+        q: "JavaScript is?",
+        options: ["Language", "Database", "Server", "OS"],
+        answer: 0
+    }
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+    let q = questions[current];
+    document.getElementById("question").innerText = q.q;
+
+    for (let i = 0; i < 4; i++) {
+        document.getElementById("opt" + i).innerText = q.options[i];
+    }
+}
+
+function checkAnswer(i) {
+    if (i === questions[current].answer) {
+        score++;
+    }
+
+    current++;
+
+    if (current < questions.length) {
+        loadQuestion();
+    } else {
+        document.querySelector(".quiz-box").innerHTML =
+            "<h2>Quiz Finished 🎉</h2><h3>Your Score: " + score + "</h3>";
+    }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
